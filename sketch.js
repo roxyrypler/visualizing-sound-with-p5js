@@ -11,7 +11,7 @@ let amp;
 
 
 function preload() {
-    song = loadSound("Sounds/Blues_Infusion.mp3", loaded);
+    song = loadSound("Sounds/DBZ.mp3", loaded);
 }
 
 function setup() {
@@ -31,21 +31,6 @@ function loaded() {
     console.log("Song Loaded");
 }
 
-function draw() {
-    background(0);
-    song.setVolume(sliderVolume.value());
-    song.rate(sliderRate.value());
-    song.pan(sliderPan.value());
-    
-    let vol = amp.getLevel();
-    let diam = map(vol, 0, 1, 50, 400);
-    
-    fill(255, 0, 255);
-    ellipse(width / 2, height / 2, diam, diam);
-}
-
-
-
 function togglePlaying() {
     if (!song.isPlaying()) {
         song.play(); 
@@ -60,5 +45,25 @@ function stopPlayback() {
     song.stop();
     buttonOne.html("play");
 }
+
+
+function draw() {
+    background(0);
+    song.setVolume(sliderVolume.value());
+    song.rate(sliderRate.value());
+    song.pan(sliderPan.value());
+    
+    let vol = amp.getLevel();
+    let diam = map(vol, 0, 1, 0, 400);
+    
+    ellipse(100, 100, 50, 50);
+    ellipse(300, 100, 50, 50);
+    
+    fill(255, 0, 255);
+    ellipse(width / 2, height / 2, width - 20, diam);
+}
+
+
+
 
 
