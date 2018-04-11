@@ -8,19 +8,27 @@ let buttonOne;
 let buttonTwo;
 
 let amp;
+let volhistory = [];
+let defultArrayValue = 0;
 
 
 function preload() {
-    song = loadSound("Sounds/Blues_Infusion.mp3", loaded);
+    song = loadSound("Sounds/Maxo-Treeknot.mp3", loaded);
 }
 
 function setup() {
-    createCanvas(400, 400);
-    sliderVolume = createSlider(0, 1, 0.4, 0.01);
-    sliderRate = createSlider(0, 3, 1, 0.01);
-    sliderPan = createSlider(-1, 1, 0, 0.01);
+    createCanvas(500, 500);
+    sliderVolume = createSlider(0, 1, 1, 0.01);
     
+    
+    angleMode(DEGREES);
     amp = new p5.Amplitude();
+    
+    for (let j = 0; j < 360; j++) {
+        volhistory.push(defultArrayValue);
+    }
+    
+    
 }
 
 function loaded() {
@@ -29,19 +37,107 @@ function loaded() {
     buttonOne.mousePressed(togglePlaying);
     buttonTwo.mousePressed(stopPlayback);
     console.log("Song Loaded");
+     
 }
 
 function draw() {
-    background(0);
+    backgroundColors();
     song.setVolume(sliderVolume.value());
-    song.rate(sliderRate.value());
-    song.pan(sliderPan.value());
     
+    circleOne();
+    circleTwo();
+    circleThree();
+    circleFour();
+    console.log(amp.volume);
+}
+
+function backgroundColors() {
+    if (amp.volume > 0.35) {
+            background(253, 121, 168);
+            stroke(108, 92, 231);
+            noFill();
+        }else {
+            background(108, 92, 231);
+            stroke(253, 121, 168);
+            noFill();
+        }
+}
+
+function circleOne() {
     let vol = amp.getLevel();
-    let diam = map(vol, 0, 1, 50, 400);
+    volhistory.push(vol);
     
-    fill(255, 0, 255);
-    ellipse(width / 2, height / 2, diam, diam);
+    translate(width / 2, height / 2);
+      beginShape();
+      for (var i = 0; i < 360; i++) {
+        var r = map(volhistory[i], 0, 1, 10, 400);
+        var x = r * cos(i);
+        var y = r * sin(i);
+        vertex(x, y);
+      }
+      endShape();
+    
+    if (volhistory.length > 360) {
+        volhistory.splice(0, 1);
+    }
+
+}
+
+function circleTwo() {
+    let vol = amp.getLevel();
+    volhistory.push(vol);
+    
+      beginShape();
+      for (var i = 0; i < 360; i++) {
+        var r = map(volhistory[i], 0, 1, 20, 400);
+        var x = r * cos(i);
+        var y = r * sin(i);
+        vertex(x, y);
+      }
+      endShape();
+    
+    if (volhistory.length > 360) {
+        volhistory.splice(0, 1);
+    }
+
+}
+
+function circleThree() {
+    let vol = amp.getLevel();
+    volhistory.push(vol);
+    
+      beginShape();
+      for (var i = 0; i < 360; i++) {
+        var r = map(volhistory[i], 0, 1, 30, 400);
+        var x = r * cos(i);
+        var y = r * sin(i);
+        vertex(x, y);
+      }
+      endShape();
+    
+    if (volhistory.length > 360) {
+        volhistory.splice(0, 1);
+    }
+
+}
+
+function circleFour() {
+    let vol = amp.getLevel();
+    volhistory.push(vol);
+    
+      beginShape();
+      for (var i = 0; i < 360; i++) {
+        var r = map(volhistory[i], 0, 1, 40, 400);
+        var x = r * cos(i);
+        var y = r * sin(i);
+        vertex(x, y);
+      }
+      endShape();
+    
+    if (volhistory.length > 360) {
+        volhistory.splice(0, 1);
+    }
+
 }
 
 
